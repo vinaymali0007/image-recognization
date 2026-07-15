@@ -1,400 +1,533 @@
-# 🧠 NeuroScan AI SaaS
+# NeuroScan — AI-Powered Brain Tumor Classification Platform
 
-NeuroScan AI SaaS is a full-stack AI-powered Brain Tumor Detection platform that enables users to upload MRI brain scans and receive automated tumor classification using a deep learning model. The application provides secure authentication, prediction history, downloadable reports, and interactive API documentation.
+> **Deep Learning-based Brain Tumor Detection Platform
+ · Flask + React · PyTorch CNN · Dockerized Deployment**
 
----
+NeuroScan is a full-stack AI-powered medical image analysis platform that classifies brain tumors from MRI scans using a trained Convolutional Neural Network (CNN). The platform provides an end-to-end workflow where users can upload MRI images, receive CNN-based predictions, securely manage prediction history, and generate reports through a modern web interface.
 
-## 🚀 Features
-
-- 🔐 JWT Authentication (Register/Login)
-- 🧠 Brain Tumor Detection using Deep Learning (PyTorch CNN)
-- 📤 MRI Image Upload
-- 📊 Confidence Score & Class Probabilities
-- 📜 Prediction History
-- 📄 Download Prediction Reports (PDF/JSON)
-- 📚 Swagger API Documentation
-- 🐳 Fully Dockerized Deployment
-- 🗄️ Hybrid Database Architecture
-  - PostgreSQL (User & Prediction Data)
-  - MongoDB (Reports & Metadata)
+Unlike traditional manual workflows, NeuroScan automates MRI image classification using Deep Learning while providing a scalable REST API architecture, secure authentication, and containerized deployment.
 
 ---
 
-# 🏗️ Technology Stack
+# Table of Contents
+
+- [Overview](#overview)
+- [Screenshots](#screenshots)
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [System Architecture](#system-architecture)
+- [Machine Learning Pipeline](#machine-learning-pipeline)
+- [Dataset](#dataset)
+- [Model Information](#model-information)
+- [Quick Start (Docker)](#quick-start-docker)
+- [Project Structure](#project-structure)
+- [API Reference](#api-reference)
+- [Database Design](#database-design)
+- [Documentation](#documentation)
+- [Future Enhancements](#future-enhancements)
+- [License](#license)
+- [Disclaimer](#disclaimer)
+
+---
+
+# Overview
+
+NeuroScan combines Artificial Intelligence, Deep Learning, and modern web technologies to provide an automated MRI brain tumor classification platform.
+
+The system consists of:
+
+- React-based frontend
+- Flask REST API backend
+- PyTorch CNN inference engine
+- PostgreSQL database
+- MongoDB database
+- Dockerized deployment
+
+The application is designed with a modular architecture, making it easy to maintain, extend, and deploy across different environments.
+
+---
+
+# 📸 Screenshots
+
+### Home Page
+
+![Home Page](docs/screenshots/home.png)
+
+---
+
+### Login
+
+![Login](docs/screenshots/login.png)
+
+---
+
+### Register
+
+![Register](docs/screenshots/register.png)
+
+---
+
+### Dashboard
+
+![Dashboard](docs/screenshots/dashboard.png)
+
+---
+
+### Run a Diagnosis
+
+![Run a Diagnosis](docs/screenshots/diagnose.png)
+
+---
+
+### Prediction Result
+
+![Prediction Result](docs/screenshots/diagnose-result.png)
+
+---
+
+### Prediction History
+
+![Prediction History](docs/screenshots/history.png)
+
+---
+
+### Model Info
+
+![Model Info](docs/screenshots/model.png)
+
+---
+
+### Swagger Documentation
+
+![Swagger Documentation](docs/screenshots/swagger.png)
+
+> Place your actual screenshot files inside `docs/screenshots/` in the repo (matching the filenames above), and they'll render automatically here.
+
+---
+
+# Features
+
+| Feature | Description |
+|----------|-------------|
+| 🧠 AI Brain Tumor Classification | Classifies MRI scans using a trained CNN model |
+| 📤 MRI Image Upload | Upload and validate MRI brain images |
+| 📊 Prediction Results | Displays CNN-based prediction with confidence score and per-class probability breakdown |
+| 📄 Report Generation | Generate downloadable PDF prediction reports |
+| 🔐 User Authentication | Secure JWT-based authentication with role-based login (e.g. Researcher) |
+| 📚 Prediction History | View previously generated predictions and re-download reports |
+| 📖 Swagger API Documentation | Interactive API documentation |
+| 🗄 PostgreSQL Integration | Stores users and prediction history |
+| 📦 MongoDB Integration | Stores application metadata and supports future expansion |
+| 🐳 Docker Support | Fully containerized deployment |
+
+---
+
+# Technology Stack
 
 ## Frontend
-- React.js
-- Vite
-- Tailwind CSS
-- JavaScript
+
+| Technology | Purpose |
+|------------|---------|
+| React | User Interface |
+| Vite | Frontend Build Tool |
+| HTML5 | Markup |
+| CSS3 | Styling |
+| JavaScript | Client-side Logic |
+| Nginx | Production Web Server |
+
+---
 
 ## Backend
-- Flask
-- Flask SQLAlchemy
-- Flask CORS
-- JWT Authentication
-- Flasgger (Swagger UI)
+
+| Technology | Purpose |
+|------------|---------|
+| Python 3.11 | Programming Language |
+| Flask | REST API Framework |
+| Flask-SQLAlchemy | ORM |
+| Gunicorn | Production WSGI Server |
+| PyJWT | Authentication |
+| Flasgger | Swagger API Documentation |
+
+---
 
 ## AI / Machine Learning
-- PyTorch
-- TorchVision
-- Pillow
 
-## Databases
-- PostgreSQL
-- MongoDB
+| Technology | Purpose |
+|------------|---------|
+| PyTorch | Deep Learning Framework |
+| TorchVision | Image Processing Utilities |
+| CNN | Brain Tumor Classification Model |
+
+---
+
+## Database
+
+| Database | Purpose |
+|-----------|---------|
+| PostgreSQL | User & Prediction Data |
+| MongoDB | Application Metadata |
+
+---
 
 ## DevOps
-- Docker
-- Docker Compose
-- Gunicorn
-- Nginx
+
+| Technology | Purpose |
+|------------|---------|
+| Docker | Containerization |
+| Docker Compose | Multi-container Orchestration |
 
 ---
 
-# 📁 Project Structure
+# System Architecture
 
-```
-project/
-│
-├── backend/
-│   ├── inference/
-│   ├── models/
-│   ├── repositories/
-│   ├── routes/
-│   ├── services/
-│   ├── utils/
-│   ├── docs/
-│   ├── uploads/
-│   ├── app.py
-│   └── requirements.txt
-│
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   ├── Dockerfile
-│   └── package.json
-│
-├── docker-compose.yml
-├── .env.example
-└── README.md
+```text
+                    User
+                      │
+                      ▼
+             React Frontend
+                 (Nginx)
+                      │
+                      ▼
+             Flask REST API
+               (Gunicorn)
+                      │
+        ┌─────────────┴─────────────┐
+        ▼                           ▼
+ PostgreSQL Database          MongoDB Database
+                      │
+                      ▼
+            AI Inference Engine
+              PyTorch CNN Model
+                      │
+                      ▼
+             Brain Tumor Prediction
 ```
 
 ---
 
-# 📋 Prerequisites
+# Machine Learning Pipeline
 
-Install the following before running the project.
+```text
+MRI Image Upload
+        │
+        ▼
+Image Validation
+        │
+        ▼
+Image Preprocessing (resize to 32×32 px, RGB)
+        │
+        ▼
+CNN Model Inference
+        │
+        ▼
+Softmax Class Probabilities
+        │
+        ▼
+Save Prediction
+        │
+        ▼
+Generate Report
+```
+
+---
+
+# Dataset
+
+The CNN model was trained using the **Brain Tumour Classification** dataset available on Kaggle.
+
+| Detail | Description |
+|--------|-------------|
+| Source | [Kaggle — Brain Tumour Classification](https://www.kaggle.com/datasets/rishiksaisanthosh/brain-tumour-classification) |
+| Classes | Glioma, Meningioma, Pituitary, No Tumor |
+| Format | Axial MRI slices (JPG/PNG) |
+
+The dataset consists of MRI brain scan images categorized into four tumor classes and is used for training and evaluating the deep learning model for automated brain tumor classification.
+
+---
+
+# Model Information
+
+| Detail | Description |
+|--------|-------------|
+| Architecture | CNN (2 convolutional blocks + 2 fully connected layers) |
+| Input Size | 32 × 32 px |
+| Channels | RGB (3-channel) |
+| Parameters | ~2.1M |
+| Framework | PyTorch |
+| Inference Device | CPU |
+| Classes | Glioma, Meningioma, Pituitary, No Tumor |
+
+### Inference Pipeline
+
+1. Image is decoded and converted to RGB.
+2. Image is resized to 32×32 px and converted to a tensor.
+3. Forward pass through the CNN produces raw logits.
+4. Softmax converts logits into class probabilities.
+5. The highest-probability class is returned as the diagnosis.
+
+### Model File
+
+```text
+backend/
+└── weights/
+    └── cnn.pth
+```
+
+The trained model is loaded automatically during backend startup and used for real-time inference.
+
+---
+
+# Quick Start (Docker)
+
+## Prerequisites
+
+Install:
 
 - Docker Desktop
-- Docker Compose (included with Docker Desktop)
+- Docker Compose
+- Git
 
 ---
 
-# 🐳 Running with Docker (Recommended)
-
-## Step 1 – Clone the Repository
+## Clone Repository
 
 ```bash
-git clone <repository-url>
-
-cd project
-```
-
----
-
-## Step 2 – Configure Environment Variables
-
-Create a `.env` file from the example.
-
-Windows
-
-```bash
-copy .env.example .env
-```
-
-Linux / macOS
-
-```bash
-cp .env.example .env
+git clone https://github.com/vinaymali0007/image-recognization.git
+cd image-recognization
 ```
 
 ---
 
-## Step 3 – Build and Start the Application
+## Start Application
 
 ```bash
-docker compose up -d --build
+docker compose up -d
 ```
 
-The first build may take several minutes because the AI dependencies (PyTorch) are downloaded.
-
----
-
-## Step 4 – Verify Running Containers
-
-```bash
-docker ps
-```
-
-Expected containers:
-
-```
-neuroscan-frontend
-neuroscan-backend
-neuroscan-postgres
-neuroscan-mongodb
-```
-
----
-
-## Step 5 – Access the Application
-
-| Service | URL |
-|----------|-----|
-| Frontend | http://localhost |
-| Backend API | http://localhost:5000/api/v1 |
-| Swagger Documentation | http://localhost:5000/swagger/ |
-| Health Check | http://localhost:5000/api/v1/health |
-
-Health endpoint should return:
-
-```json
-{
-    "status":"UP"
-}
-```
-
----
-
-## Stop the Application
-
-```bash
-docker compose down
-```
+This builds (if needed) and starts all containers in detached mode.
 
 ---
 
 ## Rebuild After Code Changes
 
-### Rebuild Everything
-
 ```bash
-docker compose up -d --build
+docker compose up --build -d
 ```
 
-### Rebuild Backend Only
+Use this only when backend, frontend, or dependency changes need to be picked up.
 
-```bash
-docker compose build backend
+---
 
-docker compose up -d
-```
-
-### Rebuild Frontend Only
-
-```bash
-docker compose build frontend
-
-docker compose up -d
-```
-
-### Clean Rebuild (No Cache)
+## Stop Application
 
 ```bash
 docker compose down
-
-docker compose build --no-cache
-
-docker compose up -d
 ```
 
 ---
 
-# 💻 Running Locally (Without Docker)
+## Remove Containers and Volumes
 
-## Database Setup
-
-Install and start:
-
-- PostgreSQL
-- MongoDB
-
-Create a PostgreSQL database named:
-
-```
-neuroscan
+```bash
+docker compose down -v
 ```
 
 ---
 
-## Backend
+# Application URLs
 
-```bash
-cd backend
+| Service | URL |
+|----------|-----|
+| Frontend | http://localhost |
+| Backend API | http://localhost:5000 |
+| Swagger Documentation | http://localhost:5000/swagger/ |
 
-python -m venv .venv
+---
 
-.venv\Scripts\activate
-```
+# Project Structure
 
-Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-Run
-
-```bash
-python app.py
-```
-
-Backend runs at
-
-```
-http://localhost:5000
+```text
+NeuroScan/
+│
+├── backend/
+│   ├── app.py
+│   ├── config.py
+│   ├── extensions.py
+│   ├── inference/
+│   ├── models/
+│   ├── repositories/
+│   ├── routes/
+│   ├── utils/
+│   ├── docs/
+│   │   └── swagger.yml
+│   ├── weights/
+│   │   └── cnn.pth
+│   ├── uploads/
+│   ├── requirements.txt
+│   └── Dockerfile
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   ├── Dockerfile
+│   └── nginx.conf
+│
+├── docker-compose.yml
+├── README.md
+├── PROJECT_DOCUMENTATION.md
+├── USER_MANUAL.md
+├── INSTALLATION_GUIDE.md
+└── LICENSE
 ```
 
 ---
 
-## Frontend
+# API Reference
 
-Open another terminal.
-
-```bash
-cd frontend
-
-npm install
-
-npm run dev
-```
-
-Frontend runs at
+## Base URL
 
 ```
-http://localhost:5173
+http://localhost:5000/api/v1
 ```
 
 ---
 
-# 📚 API Documentation
+## Health Check
 
-Swagger UI is available at
+| Method | Endpoint | Description |
+|----------|----------|-------------|
+| GET | /health | Application Health Status |
+
+---
+
+## Authentication
+
+| Method | Endpoint | Description |
+|----------|----------|-------------|
+| POST | /auth/register | Register User |
+| POST | /auth/login | User Login |
+| GET | /auth/me | Get Current Authenticated User |
+
+---
+
+## Prediction
+
+| Method | Endpoint | Description |
+|----------|----------|-------------|
+| POST | /predict/ | Upload MRI Image & Run Prediction |
+| GET | /predict/history | Retrieve Prediction History |
+
+---
+
+## Reports
+
+| Method | Endpoint | Description |
+|----------|----------|-------------|
+| GET | /report/download/{id} | Download Prediction Report as PDF |
+
+---
+
+## Interactive Documentation
+
+Interactive Swagger API documentation is available at:
 
 ```
 http://localhost:5000/swagger/
 ```
 
-It includes documentation for:
-
-- Authentication
-- Prediction
-- Reports
-- Health Check
-
 ---
 
-# 🧪 Application Workflow
-
-1. Register a new account.
-2. Login.
-3. Upload an MRI brain image.
-4. AI model performs tumor classification.
-5. View prediction confidence and probabilities.
-6. Access prediction history.
-7. Download PDF or JSON report.
-
----
-
-# 📊 Supported Brain Tumor Classes
-
-- Glioma
-- Meningioma
-- Pituitary
-- No Tumor
-
----
-
-# 🗄️ Database Architecture
+# Database Design
 
 ## PostgreSQL
 
-Stores
+Stores:
 
-- Users
-- Authentication
-- Predictions
-- History
+- User Information
+- Authentication Data
+- Prediction History
+- Report Records
+
+---
 
 ## MongoDB
 
-Stores
+Stores:
 
-- Reports
-- Metadata
-- Additional prediction information
-
----
-
-# 🔍 Troubleshooting
-
-### Docker isn't starting
-
-Restart Docker Desktop and ensure the Docker Engine is running.
+- Application Metadata
+- Reserved for future application data and expansion
 
 ---
 
-### Check running containers
+# Environment Variables
 
-```bash
-docker ps
+```env
+PORT=5000
+DEBUG=False
+MODEL_PATH=weights/cnn.pth
+UPLOAD_FOLDER=uploads
+MAX_UPLOAD_SIZE=10485760
+JWT_SECRET=your_secret_key
+DATABASE_URL=postgresql+pg8000://postgres:postgres@postgres:5432/neuroscan
+MONGO_URI=mongodb://mongodb:27017/neuroscan
+CORS_ORIGINS=*
 ```
 
 ---
 
-### View Backend Logs
+# Documentation
 
-```bash
-docker logs -f neuroscan-backend
-```
-
----
-
-### View Frontend Logs
-
-```bash
-docker logs -f neuroscan-frontend
-```
+| Document | Description |
+|----------|-------------|
+| README.md | Project Overview |
+| PROJECT_DOCUMENTATION.md | Technical Documentation |
+| USER_MANUAL.md | End User Guide |
+| INSTALLATION_GUIDE.md | Installation & Deployment Guide |
 
 ---
 
-### Check Health API
+# Future Enhancements
 
-```
-http://localhost:5000/api/v1/health
-```
-
-Expected response:
-
-```json
-{
-    "status":"UP"
-}
-```
+- Explainable AI using Grad-CAM
+- DICOM Image Support
+- Multi-class Tumor Segmentation
+- Cloud Deployment
+- Model Performance Dashboard
+- Improved CNN Architecture
+- Clinical Decision Support Integration
 
 ---
 
-# 👨‍💻 Author
+# 📖 Declaration
 
-**Vinay Mali**
+For full transparency, I have used ChatGPT to help speed up parts of this project:
 
-Computer Engineering Student
+- **Frontend (~60%):** I come from an AI/ML background and am still building familiarity with the dev side, so ChatGPT was used to help make the React frontend more catchy, polished, and visually appealing — layout structure, styling, and UI alignment.
+- **Backend (~40%, excluding the ML model):** ChatGPT assisted with parts of the Flask backend architecture (routes, Docker setup, integration logic). The ML model itself — training, preprocessing, and architecture decisions — was built and validated by me.
 
-AI / Machine Learning Enthusiast
+The core prediction logic, dataset preprocessing, model training, and overall system design remain my own work.
 
 ---
 
-# 📄 License
+# 🧪 Testing Note
 
-This project was developed for educational and research purposes. 
+If you're running the project locally and want accurate predictions during testing, use MRI images from the **[Kaggle Brain Tumour Classification dataset](https://www.kaggle.com/datasets/rishiksaisanthosh/brain-tumour-classification)** mentioned in the [Dataset](#dataset) section above. Since the model was trained specifically on that dataset's image distribution, using scans from it (or similar axial MRI slices with comparable resolution/quality) will give the most reliable and representative predictions.
+
+---
+
+# License
+
+This project is intended for educational, research, and demonstration purposes.
+
+---
+
+# Disclaimer
+
+NeuroScan is an AI-assisted medical image analysis platform developed for research and educational purposes.
+
+The predictions generated by this application should **not** be considered a substitute for professional medical diagnosis. All results should be reviewed and verified by qualified healthcare professionals.
+
+---
+
+**NeuroScan — AI-Powered Brain Tumor Detection Platform**
