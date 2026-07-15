@@ -1,0 +1,121 @@
+openapi: 3.0.0
+
+info:
+  title: NeuroScan AI SaaS API
+  version: 1.0.0
+  description: Brain Tumor Detection and Management System
+
+servers:
+  - url: /api/v1
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+
+  /health:
+    get:
+      summary: Health Check
+      responses:
+        "200":
+          description: Application is running
+
+  /auth/register:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                organization:
+                  type: string
+      responses:
+        "201":
+          description: User registered successfully
+        "400":
+          description: Bad Request
+        "409":
+          description: User already exists
+
+  /auth/login:
+    post:
+      summary: Login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: Login successful
+
+  /predict:
+    post:
+      summary: Predict Brain Tumor from MRI Image
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+      responses:
+        "201":
+          description: Prediction created
+        "400":
+          description: Invalid image
+
+  /predict/history:
+    get:
+      summary: Prediction History
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Prediction history returned
+
+  /report/download/{id}:
+    get:
+      summary: Download Prediction Report
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: PDF Report

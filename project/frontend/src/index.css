@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-void text-paper font-body antialiased transition-colors duration-300;
+}
+
+html.light body {
+  @apply bg-paper text-ink;
+}
+
+::selection {
+  background: rgba(255, 138, 52, 0.35);
+}
+
+/* Visible keyboard focus for accessibility */
+:focus-visible {
+  outline: 2px solid #FF8A34;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
