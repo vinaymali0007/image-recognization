@@ -12,7 +12,7 @@ Unlike traditional manual workflows, NeuroScan automates MRI image classificatio
 # Table of Contents
 
 - [Overview](#overview)
-- [Screenshots](#screenshots)
+
 - [Features](#features)
 - [Technology Stack](#technology-stack)
 - [System Architecture](#system-architecture)
@@ -51,59 +51,58 @@ The application is designed with a modular architecture, making it easy to maint
 
 ### Home Page
 
-![Home Page](docs/screenshots/home.png)
+<img width="1277" height="906" alt="Screenshot 2026-07-15 214619" src="https://github.com/user-attachments/assets/fba19983-61b6-4afc-aa88-371d418ab2f6" />
+
 
 ---
 
 ### Login
 
-![Login](docs/screenshots/login.png)
+<img width="1220" height="898" alt="Screenshot 2026-07-15 215002" src="https://github.com/user-attachments/assets/5fa0a563-ac1b-4548-bae5-a38d69d8d64b" />
+
 
 ---
 
 ### Register
 
-![Register](docs/screenshots/register.png)
+<img width="1221" height="891" alt="Screenshot 2026-07-15 214919" src="https://github.com/user-attachments/assets/72fbb15a-0c26-42eb-8ad4-597759956b94" />
+
 
 ---
 
 ### Dashboard
 
-![Dashboard](docs/screenshots/dashboard.png)
+<img width="1296" height="897" alt="Screenshot 2026-07-15 215050" src="https://github.com/user-attachments/assets/1e177a04-7dbe-4d30-9613-c87086110099" />
+
 
 ---
 
 ### Run a Diagnosis
 
-![Run a Diagnosis](docs/screenshots/diagnose.png)
+<img width="1222" height="902" alt="Screenshot 2026-07-15 215115" src="https://github.com/user-attachments/assets/5cadd630-8a93-4f13-9874-602301f5ef54" />
+
 
 ---
 
 ### Prediction Result
+<img width="1247" height="911" alt="Screenshot 2026-07-15 215157" src="https://github.com/user-attachments/assets/e7a1c75a-62b8-49f4-93db-f6bc04d8a22d" />
 
-![Prediction Result](docs/screenshots/diagnose-result.png)
 
 ---
 
 ### Prediction History
 
-![Prediction History](docs/screenshots/history.png)
+<img width="1292" height="897" alt="Screenshot 2026-07-15 225510" src="https://github.com/user-attachments/assets/81602c38-9034-47de-8db3-ed04d08f5274" />
+
 
 ---
 
 ### Model Info
 
-![Model Info](docs/screenshots/model.png)
+<img width="1272" height="726" alt="Screenshot 2026-07-15 225617" src="https://github.com/user-attachments/assets/ef103a9b-cfc5-4ed4-8e4a-09db48868d58" />
 
----
 
-### Swagger Documentation
 
-![Swagger Documentation](docs/screenshots/swagger.png)
-
-> Place your actual screenshot files inside `docs/screenshots/` in the repo (matching the filenames above), and they'll render automatically here.
-
----
 
 # Features
 
@@ -175,6 +174,24 @@ The application is designed with a modular architecture, making it easy to maint
 |------------|---------|
 | Docker | Containerization |
 | Docker Compose | Multi-container Orchestration |
+
+---
+---
+
+### Docker Images
+ 
+<img width="1598" height="708" alt="Screenshot 2026-07-15 221020" src="https://github.com/user-attachments/assets/8d7d5190-45b8-414b-9068-df59127c9445" />
+
+
+
+---
+---
+
+### Docker Containers
+
+<img width="1581" height="617" alt="Screenshot 2026-07-15 221039" src="https://github.com/user-attachments/assets/868ea622-1e72-4e30-8911-3646a715549a" />
+
+
 
 ---
 
