@@ -522,6 +522,7 @@ For full transparency, I have used ChatGPT to help speed up parts of this projec
 
 - **Frontend (~60%):** I come from an AI/ML background and am still building familiarity with the dev side, so ChatGPT was used to help make the React frontend more catchy, polished, and visually appealing — layout structure, styling, and UI alignment.
 - **Backend (~40%, excluding the ML model):** ChatGPT assisted with parts of the Flask backend architecture (routes, Docker setup, integration logic). The ML model itself — training, preprocessing, and architecture decisions — was built and validated by me.
+- **Docker (~25%)**  
 
 The core prediction logic, dataset preprocessing, model training, and overall system design remain my own work.
 
